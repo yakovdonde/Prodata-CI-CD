@@ -2,26 +2,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres
+  name: agrodb
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgres
+      app: agrodb
   template:
     metadata:
       labels:
-        app: postgres
+        app: agrodb
     spec:
       containers:
-      - name: postgres
-        image: postgres
+      - name: agrodb
+        image: prodataaz/agrodb:initial
         env:
           - name: POSTGRES_DB
-            value: "xwiki"  # Replace with your PostgreSQL database name
+            value: "xwiki"  # Replace with your agrodbQL database name
           - name: POSTGRES_USER
-            value: "xwiki"  # Replace with your PostgreSQL username
+            value: "xwiki"  # Replace with your agrodbQL username
           - name: POSTGRES_PASSWORD
-            value: "xwiki"  # Replace with your PostgreSQL password
+            value: "xwiki"  # Replace with your agrodbQL password
         ports:
         - containerPort: 5432

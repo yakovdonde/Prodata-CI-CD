@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: xwiki
+  name: agronewiki
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: xwiki
+      app: agronewiki
   template:
     metadata:
       labels:
-        app: xwiki
+        app: agronewiki
     spec:
       containers:
-      - name: xwiki
-        image: xwiki:postgres-tomcat
+      - name: agronewiki
+        image: prodataaz/agronewiki:initial
         env:
           - name: DB_TYPE
             value: "postgresql"
           - name: DB_HOST
-            value: "postgres"  # Replace with your PostgreSQL host
+            value: "agrodb"  # Replace with your PostgreSQL host
           - name: DB_PORT
             value: "5432"
           - name: DB_NAME
