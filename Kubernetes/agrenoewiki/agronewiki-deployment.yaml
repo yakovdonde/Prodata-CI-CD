@@ -31,7 +31,10 @@ spec:
             value: "xwiki"  # Replace with your PostgreSQL password
         ports:
         - containerPort: 8080
+        volumeMounts:
+        - name: agronewiki-pvc
+          mountPath: /var/xwiki/data
       volumes:
-      - name: agronewiki-data
-        emptyDir: {}
-
+      - name: agronewiki-pvc
+        persistentVolumeClaim:
+          claimName: agronewiki-pvc
