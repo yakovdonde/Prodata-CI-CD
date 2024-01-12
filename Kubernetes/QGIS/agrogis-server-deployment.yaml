@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agrogis-server
+  namespace: agrotech-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      myLabel: agrogis-server
+  template:
+    metadata:
+      labels:
+        myLabel: agrogis-server
+    spec:
+      containers:
+        - name: agrogis-server
+          image: qgis/qgis:release-3_34
+          imagePullPolicy: Always
+          env:
+            - name: LANG
+              value: en_EN.UTF-8
+            - name: QGIS_PROJECT_FILE
+              value: /data/osm.qgs
+            - name: QGIS_SERVER_LOG_LEVEL
+              value: "0"
+            - name: DEBUG
+              value: "1"
+          ports:
+            - containerPort: 5555
+          volumeMounts:
+            - name: qgis-data
+              mountPath: /data/
+      volumes:
+        - name: qgis-data
+          hostPath:
+            path: /home/prdadm/agrogis/pv/agrogis-server-pv/data

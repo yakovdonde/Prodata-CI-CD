@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qgis-nginx
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      myLabel: qgis-nginx
+  template:
+    metadata:
+      labels:
+        myLabel: qgis-nginx
+    spec:
+      containers:
+        - name: qgis-nginx
+          image: nginx:1.13
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nginx-conf
+              mountPath: /etc/nginx/conf.d/default.conf
+      volumes:
+        - name: nginx-conf
+          hostPath:
+            path: REPLACE_WITH_FULL_PATH/nginx.conf
