@@ -27,9 +27,9 @@ spec:
         ports:
         - containerPort: 5432
         volumeMounts:
-        - name: agrodb-persistent-storage
+        - name: postgres-data
           mountPath: /
       volumes:
-      - name: argodb-persistent-storage
+      - name: agrodb-data
         persistentVolumeClaim:
-          claimName: agrodb-pvc
+          claimName: postgres-data-pvc
