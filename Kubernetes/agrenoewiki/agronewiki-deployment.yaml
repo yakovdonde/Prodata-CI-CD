@@ -4,7 +4,7 @@ metadata:
   name: agronewiki
   namespace: agrotech-dev
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: agronewiki
@@ -13,10 +13,6 @@ spec:
       labels:
         app: agronewiki
     spec:
-      initContainers:
-      - name: init-apt
-        image: ubuntu:latest  # Using an Ubuntu image for the initContainer
-        command: ["bash", "-c", "apt update && apt upgrade -y"]
       containers:
       - name: agronewiki
         image: xwiki:postgres-tomcat
@@ -35,3 +31,5 @@ spec:
             value: "xwiki"  # Replace with your PostgreSQL password
         ports:
         - containerPort: 8080
+
+

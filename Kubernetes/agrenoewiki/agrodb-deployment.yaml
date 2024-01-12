@@ -5,7 +5,7 @@ metadata:
   name: agrodb
   namespace: agrotech-dev
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: agrodb
