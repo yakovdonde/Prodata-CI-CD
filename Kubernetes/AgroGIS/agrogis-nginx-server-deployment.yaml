@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qgis-nginx
-  namespace: default
+  name: agrogis-nginx
+  namespace: agrotech-dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      myLabel: qgis-nginx
+      myLabel: agrogis-nginx
   template:
     metadata:
       labels:
-        myLabel: qgis-nginx
+        myLabel: agrogis-nginx
     spec:
       containers:
-        - name: qgis-nginx
+        - name: agrogis-nginx
           image: nginx:1.13
           ports:
             - containerPort: 80
@@ -24,4 +24,4 @@ spec:
       volumes:
         - name: nginx-conf
           hostPath:
-            path: REPLACE_WITH_FULL_PATH/nginx.conf
+            path: /home/prdadm/agrogis/pv/agrogis-nginx-server-pv/nginx.conf
