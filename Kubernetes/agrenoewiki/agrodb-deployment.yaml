@@ -27,9 +27,9 @@ spec:
         ports:
         - containerPort: 5432
         volumeMounts:
-        - name: postgres-data
-          mountPath: /
+        - name: agrodb-pvc
+          mountPath: "/var/lib/postgresql/data"
       volumes:
-      - name: agrodb-data
+      - name: agrodb-pvc
         persistentVolumeClaim:
-          claimName: postgres-data-pvc
+          claimName: agrodb-pvc
