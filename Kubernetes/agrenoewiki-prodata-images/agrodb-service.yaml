@@ -3,6 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: agrodb
+  namespace: agrotech-dev
 spec:
   selector:
     app: agrodb

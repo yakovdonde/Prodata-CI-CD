@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: agrodb
+  namespace: agrotech-dev
 spec:
   replicas: 1
   selector:
@@ -15,13 +16,13 @@ spec:
     spec:
       containers:
       - name: agrodb
-        image: prodataaz/agrodb:initial
+        image: postgres
         env:
           - name: POSTGRES_DB
-            value: "xwiki"  # Replace with your agrodbQL database name
+            value: "agronewiki"  # Replace with your agrodbQL database name
           - name: POSTGRES_USER
-            value: "xwiki"  # Replace with your agrodbQL username
+            value: "agronewiki"  # Replace with your agrodbQL username
           - name: POSTGRES_PASSWORD
-            value: "xwiki"  # Replace with your agrodbQL password
+            value: "agronewiki"  # Replace with your agrodbQL password
         ports:
         - containerPort: 5432
