@@ -24,11 +24,11 @@ spec:
           - name: DB_PORT
             value: "5432"
           - name: DB_NAME
-            value: "agronewiki"  # Replace with your PostgreSQL database name
+            value: "xwiki"  # Replace with your PostgreSQL database name
           - name: DB_USER
-            value: "agronewiki"  # Replace with your PostgreSQL username
+            value: "xwiki"  # Replace with your PostgreSQL username
           - name: DB_PASSWORD
-            value: "agronewiki"  # Replace with your PostgreSQL password
+            value: "xwiki"  # Replace with your PostgreSQL password
         ports:
         - containerPort: 8080
 

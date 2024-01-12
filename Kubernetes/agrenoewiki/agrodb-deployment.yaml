@@ -19,10 +19,10 @@ spec:
         image: postgres
         env:
           - name: POSTGRES_DB
-            value: "agronewiki"  # Replace with your agrodbQL database name
+            value: "xwiki"  # Replace with your agrodbQL database name
           - name: POSTGRES_USER
-            value: "agronewiki"  # Replace with your agrodbQL username
+            value: "xwiki"  # Replace with your agrodbQL username
           - name: POSTGRES_PASSWORD
-            value: "agronewiki"  # Replace with your agrodbQL password
+            value: "xwiki"  # Replace with your agrodbQL password
         ports:
         - containerPort: 5432
