@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: agronewiki
-        image: xwiki:postgres-tomcat
+        image: xwiki:stabe-postgres-tomcat
         env:
           - name: DB_TYPE
             value: "postgresql"
