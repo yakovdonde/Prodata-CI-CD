@@ -16,7 +16,7 @@ spec:
       containers:
         - name: agrogis-server
           image: qgis/qgis:release-3_34
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           env:
             - name: LANG
               value: en_EN.UTF-8
