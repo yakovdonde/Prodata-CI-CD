@@ -24,4 +24,4 @@ spec:
       volumes:
         - name: nginx-conf
           hostPath:
-            path: /home/prdadm/agrogis/pv/agrogis-nginx-server-pv/nginx.conf
+            path: /home/prdadm/agrogis/pv/agrogis-nginx-server-pv
