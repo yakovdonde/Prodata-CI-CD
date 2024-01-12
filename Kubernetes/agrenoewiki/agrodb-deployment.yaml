@@ -26,3 +26,10 @@ spec:
             value: "xwiki"  # Replace with your agrodbQL password
         ports:
         - containerPort: 5432
+        volumeMounts:
+        - name: agrodb-persistent-storage
+          mountPath: /
+      volumes:
+      - name: argodb-persistent-storage
+        persistentVolumeClaim:
+          claimName: agrodb-pvc

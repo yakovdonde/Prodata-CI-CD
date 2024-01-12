@@ -31,5 +31,7 @@ spec:
             value: "xwiki"  # Replace with your PostgreSQL password
         ports:
         - containerPort: 8080
-
+      volumes:
+      - name: agronewiki-data
+        emptyDir: {}
 
