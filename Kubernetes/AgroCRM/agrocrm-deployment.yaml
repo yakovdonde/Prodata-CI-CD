@@ -39,11 +39,11 @@ spec:
             value: agrocrm
         ports:
         - containerPort: 8080
-        volumeMounts:
-        - name: agrocrm-pvc
-          mountPath: /bitnami/suitecrm
-      volumes:
-      - name: agrocrm-pvc
-        persistentVolumeClaim:
-          claimName: agrocrm-pvc
+#        volumeMounts:
+#        - name: agrocrm-pvc
+#          mountPath: /bitnami/suitecrm
+#      volumes:
+#      - name: agrocrm-pvc
+#        persistentVolumeClaim:
+#          claimName: agrocrm-pvc
 
