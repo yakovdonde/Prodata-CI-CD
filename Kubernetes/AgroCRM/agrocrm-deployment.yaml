@@ -29,6 +29,14 @@ spec:
             value: "agrocrm"  # Replace with your PostgreSQL username
           - name: DB_PASSWORD
             value: "agrocrm"  # Replace with your PostgreSQL password
+          - name: ALLOW_EMPTY_PASSWORD
+            value: "yes"
+          - name: SUITECRM_DATABASE_USER
+            value: "agrocrm"
+          - name: SUITECRM_DATABASE_PASSWORD
+            value: "agrocrm"
+          - name: SUITECRM_DATABASE_NAME
+            value: agrocrm
         ports:
         - containerPort: 8080
         volumeMounts:
@@ -38,3 +46,4 @@ spec:
       - name: agrocrm-pvc
         persistentVolumeClaim:
           claimName: agrocrm-pvc
+
