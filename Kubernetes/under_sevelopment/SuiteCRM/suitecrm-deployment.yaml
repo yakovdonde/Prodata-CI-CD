@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: suitecrm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: suitecrm
+  template:
+    metadata:
+      labels:
+        app: suitecrm
+    spec:
+      containers:
+      - name: suitecrm
+        image: bitnami/suitecrm:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        - name: MARIADB_HOST
+          value: mariadb
+        - name: MARIADB_PORT_NUMBER
+          value: "3306"
+        - name: MARIADB_ROOT_USER
+          value: "root"
+        - name: MARIADB_ROOT_PASSWORD
+          value: "root"
+        volumeMounts:
+        - name: suitecrm-data
+          mountPath: /bitnami/suitecrm
+
+      volumes:
+      - name: suitecrm-data
+        persistentVolumeClaim:
+          claimName: suitecrm-pvc
