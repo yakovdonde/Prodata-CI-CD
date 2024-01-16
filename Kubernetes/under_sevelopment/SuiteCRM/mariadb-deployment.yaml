@@ -16,6 +16,8 @@ spec:
       containers:
       - name: mariadb
         image: bitnami/mariadb:latest
+        securityContext:
+          runAsUser: 1001
         ports:
         - containerPort: 3306
         env:

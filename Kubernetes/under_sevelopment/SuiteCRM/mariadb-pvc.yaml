@@ -4,7 +4,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mariadb-pvc
-  namespace: agrotech-devv
+  namespace: agrotech-dev
 spec:
   accessModes:
     - ReadWriteOnce
