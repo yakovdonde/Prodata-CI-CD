@@ -2,6 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: suitecrm-pvc
+  namespace: agrotech-dev
 spec:
   accessModes:
     - ReadWriteOnce

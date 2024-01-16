@@ -2,6 +2,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: mariadb-pv
+  namespace: agrotech-dev
 spec:
   capacity:
     storage: 5Gi
