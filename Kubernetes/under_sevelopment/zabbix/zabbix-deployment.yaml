@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: general
+  annotations:
+  labels:
+    zabbix-app: zabbix-server
+  name: zabbix-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      zabbix-app: zabbix-server
+  template:
+    metadata:
+      labels:
+        zabbix-app: zabbix-server
+    spec:
+      containers:
+      - image: zabbix/zabbix-server-pgsql
+        name: zabbix-server
+        env:
+          - name: POSTGRES_DB
+            value: "zabbix"  # Replace with your PostgreSQL database name
+          - name: POSTGRES_USER
+            value: "zabbix"  # Replace with your PostgreSQL username
+          - name: POSTGRES_PASSWORD
+            value: "zabbix"  # Replace with your PostgreSQL password
+        ports:
+        - containerPort: 10051
+      restartPolicy: Always
+
+#### Service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: general
+  labels:
+    zabbix-app: zabbix-server
+  name: zabbix-server
+spec:
+  type: NodePort
+  ports:
+  - name: "10051"
+    port: 10051
+    targetPort: 10051
+  selector:
+    zabbix-app: zabbix-server
