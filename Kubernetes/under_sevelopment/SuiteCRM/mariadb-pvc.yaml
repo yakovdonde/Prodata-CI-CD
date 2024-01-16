@@ -1,14 +1,14 @@
+---
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mariadb-pvc
-  namespace: agrotech-dev
+  namespace: agrotech-devv
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: manual
   resources:
     requests:
       storage: 5Gi
-  selector:
-    matchLabels:
-      app: mariadb
