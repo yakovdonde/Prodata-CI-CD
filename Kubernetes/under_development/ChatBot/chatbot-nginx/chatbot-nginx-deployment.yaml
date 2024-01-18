@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-proxy-deployment
+  namespace: chatbot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      imagePullSecrets:
+      - name: prodata-dockerhub-access
+      containers:
+      - name: nginx
+        image: docker.io/library/nginx:latest
+        volumeMounts:
+        - name: nginx-config-volume
+          mountPath: /etc/nginx/conf.d
+        ports:
+        - containerPort: 5000
+      volumes:
+      - name: nginx-config-volume
+        configMap:
+          name: nginx-config
+          items:
+          - key: nginx-config.conf
+            path: nginx-config.conf

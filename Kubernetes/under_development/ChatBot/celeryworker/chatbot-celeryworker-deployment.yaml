@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: celery
+  name: celery
+  namespace: chatbot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: celery
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: celery
+    spec:
+      imagePullSecrets:
+      - name: prodata-dockerhub-access
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+      - image: prodataaz/celeryworker
+        name: celery
+        volumeMounts:
+        - name: chatbot-celery-pvc
+          mountPath: /backend
+        envFrom:
+        - secretRef:
+            name: backend-env-secret
+        - configMapRef:
+            name: backend-env-configmap
+      volumes:
+      - name: chatbot-celery-pvc
+        persistentVolumeClaim:
+          claimName: chatbot-celery-pvc

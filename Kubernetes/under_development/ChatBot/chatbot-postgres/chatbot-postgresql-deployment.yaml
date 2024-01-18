@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: postgres-chatbot
+    ns: chatbot
+  name: postgres
+  namespace: chatbot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-chatbot
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: postgres-chatbot
+    spec:
+      restartPolicy: Always
+      containers:
+      - image: postgres
+        name: postgres
+        env:
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_DB
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_PASSWORD
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_USER
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - pg_isready --username=postgres && psql --username=postgres --list
+          failureThreshold: 4
+          initialDelaySeconds: 40
+          periodSeconds: 30
+          timeoutSeconds: 10
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: postgres-claim
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: postgres-claim
+        persistentVolumeClaim:
+          claimName: chatbot-postgresql-claim

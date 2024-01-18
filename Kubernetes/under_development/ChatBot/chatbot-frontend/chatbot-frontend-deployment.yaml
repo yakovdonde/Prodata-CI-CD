@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: cb-nuxt-frontend
+  name: cb-nuxt-frontend
+  namespace: chatbot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cb-nuxt-frontend
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: cb-nuxt-frontend
+    spec:
+      imagePullSecrets:
+      - name: prodata-dockerhub-access
+      containers:
+      - image: prodataaz/frontend:local
+        name: cb-nuxt-frontend
+        ports:
+        - containerPort: 5050
+        - containerPort: 24677
+        envFrom:
+        - configMapRef:
+            name: backend-env-configmap
+        volumeMounts:
+        - name: chatbot-frontend-pvc-1
+          mountPath: /frontend/node_modules
+        - name: chatbot-frontend-pvc-2
+          mountPath: /frontend
+      volumes:
+      - name: chatbot-frontend-pvc-1
+        persistentVolumeClaim:
+          claimName: chatbot-frontend-pvc-1
+      - name: chatbot-frontend-pvc-2
+        persistentVolumeClaim:
+          claimName: chatbot-frontend-pvc-2

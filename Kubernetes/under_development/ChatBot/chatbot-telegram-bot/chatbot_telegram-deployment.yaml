@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: telegrambot
+  name: telegrambot
+  namespace: chatbot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: telegrambot
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: telegrambot
+    spec:
+      imagePullSecrets:
+      - name: prodata-dockerhub-access
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+      - image: prodataaz/telegrambot
+        name: telegrambot
+        envFrom:
+        - configMapRef:
+            name: configmap-telegram
+        ports:
+        - containerPort: 8003

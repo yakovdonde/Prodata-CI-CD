@@ -1,0 +1,96 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  creationTimestamp: null
+  name: ingress
+  namespace: chatbot
+  annotations:
+    #    nginx.ingress.kubernetes.io/rewrite-target: /
+    #cert-manager.io/issuer: "prod-issuer-cloudflare"
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    #    nginx.org/websocket-services: "nginx-proxy-deployment"
+
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - 'www.chatbot.prodata.local'
+    - 'chatbot.prodata.local'
+    secretName: tls-secret
+  rules:
+  - host: chatbot.prodata.local
+    http:
+      paths:
+      #      - backend:
+      #          service:
+      #            name: nginx-proxy-deployment
+      #            port:
+      #                number: 5000
+      #        path: /api
+      #        pathType: Exact
+
+      #      - backend:
+      #          service:
+      #            name: nginx-proxy-deployment
+      #            port:
+      #                number: 5000
+      #        path: /wsapi
+      #        pathType: Exact
+
+      #      - backend:
+      #          service:
+      #            name: nginx-proxy-deployment
+      #            port:
+      #                number: 5000
+      #        path: /wsapi
+      #        pathType: Exact
+      #  - backend:
+      # service:
+      #  name: nginx-proxy-deployment
+      #            port:
+      #                number: 5000
+      #        path: /api
+      #        pathType: Exact
+
+      - backend:
+          service:
+            name: nginx-proxy-deployment
+            port:
+              number: 443
+        path: /
+        pathType: Prefix
+
+      # - backend:
+      #     service:
+      #       name: nginx-proxy-deployment
+      #       port:
+      #           number: 5000
+      #   path: /api
+      #   pathType: Prefix
+  - host: chatbot-api.prodata.local
+    http:
+      paths:
+      - backend:
+          service:
+            name: chatbot-nginx-proxy
+            port:
+              number: 5000
+        path: /
+        pathType: Prefix
+
+  - host: infra.prodata.local
+    http:
+      paths:
+      - backend:
+          service:
+            name: chatbot-nginx-proxy
+            port:
+              number: 3302
+        path: /
+        pathType: Prefix
+
+status:
+  loadBalancer: {}

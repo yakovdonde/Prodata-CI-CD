@@ -1,0 +1,12 @@
+apiVersion: v1
+data:
+  CHOKIDAR_USEPOLLING: "true"
+  PORT: "5050"
+  WS_ENDPOINT: chatbot-api.prodata.local
+  baseURL: https://chatbot-api.prodata.local
+kind: ConfigMap
+metadata:
+  namespace: chatbot
+  labels:
+    ns: chatbot
+  name: frontend-env-configmap

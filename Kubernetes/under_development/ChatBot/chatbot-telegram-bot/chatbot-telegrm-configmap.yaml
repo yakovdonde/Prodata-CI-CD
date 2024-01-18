@@ -1,0 +1,9 @@
+apiVersion: v1
+data:
+  CHATBOT_URL: "http://10.20.36.23"
+  PYTHONUNBUFFERED: "1"
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: configmap-telegram
+  namespace: chatbot

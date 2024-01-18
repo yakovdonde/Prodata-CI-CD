@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: redis-chatbot
+    ns: chatbot
+  name: redis
+  namespace: chatbot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-chatbot
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: redis-chatbot
+    spec:
+      containers:
+      - image: redis:latest
+        name: redis
+        ports:
+          - containerPort: 6379

@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: whatsappbot
+  name: whatsappbot
+  namespace: chatbot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: whatsappbot
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: whatsappbot
+    spec:
+      imagePullSecrets:
+      - name: prodata-dockerhub-access
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+      - image: prodataaz/whatsappbot
+        name: whatsappbot
+        envFrom:
+        - configMapRef:
+            name: whatsappbot-configmap
+        - secretRef:
+            name: whatsapp-secret
+        ports:
+        - containerPort: 3301

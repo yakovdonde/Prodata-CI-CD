@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: chatbot-frontend-pv-2
+  labels:
+    type: local
+spec:
+  storageClassName: local
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/home/prdadm/chatbot/pv/chatbot_frontend/chatbot_frontend_pv2"

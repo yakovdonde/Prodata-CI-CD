@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: celery-beat
+  name: celery-beat
+  namespace: chatbot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: celery-beat
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: celery-beat
+    spec:
+      imagePullSecrets:
+      - name: prodata-dockerhub-access
+      containers:
+      - envFrom:
+        - secretRef:
+            name: backend-env-secret
+        - configMapRef:
+            name: backend-env-configmap
+        image: prodataaz/celerybeat
+        name: celery-beat

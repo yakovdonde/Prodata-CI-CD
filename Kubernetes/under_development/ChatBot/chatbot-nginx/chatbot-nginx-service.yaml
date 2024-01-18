@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  name: nginx-proxy-deployment
+  namespace: chatbot
+spec:
+  ports:
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: 443
+  - name: http
+    port: 5000
+    protocol: TCP
+    targetPort: 5000
+  - name: wp
+    port: 3302
+    protocol: TCP
+    targetPort: 3302
+  selector:
+    app: nginx
+status:
+  loadBalancer: {}

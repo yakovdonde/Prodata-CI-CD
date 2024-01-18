@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: data-augmentation-1
+    ns: chatbot
+  name: data-augmentation-1
+  namespace: chatbot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-augmentation-1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: data-augmentation-1
+    spec:
+      imagePullSecrets:
+      - name: prodata-dockerhub-access
+      containers:
+      - image: prodataaz/text-augmentation
+        name: text-augmentation
+        ports:
+        - containerPort: 8001

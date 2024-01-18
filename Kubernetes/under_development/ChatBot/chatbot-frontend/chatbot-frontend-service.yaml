@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: chatbot
+spec:
+  selector:
+    app: cb-nuxt-frontend
+  ports:
+    - protocol: TCP
+      port: 5050
+      targetPort: 5050
+      name: front-1
+
+    - name: front-2
+      protocol: TCP
+      targetPort: 24677
+      port: 24677
