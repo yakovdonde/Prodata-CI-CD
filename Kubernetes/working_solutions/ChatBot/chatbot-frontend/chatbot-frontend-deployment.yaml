@@ -24,7 +24,8 @@ spec:
       imagePullSecrets:
       - name: prodata-dockerhub-access
       containers:
-      - image: prodataaz/frontend:local
+      - image: prodataaz/frontend:bare
+        imagePullPolicy: Always
         name: cb-nuxt-frontend
         ports:
         - containerPort: 5050

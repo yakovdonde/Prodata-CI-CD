@@ -5,13 +5,12 @@ metadata:
   name: ingress
   namespace: chatbot
   annotations:
-    #    nginx.ingress.kubernetes.io/rewrite-target: /
-    #cert-manager.io/issuer: "prod-issuer-cloudflare"
+
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
-    #    nginx.org/websocket-services: "nginx-proxy-deployment"
+
 
 spec:
   ingressClassName: nginx
@@ -19,7 +18,7 @@ spec:
   - hosts:
     - 'www.chatbot.prodata.local'
     - 'chatbot.prodata.local'
-    secretName: tls-secret
+    secretName: tls-secret-chatbot
   rules:
   - host: chatbot.prodata.local
     http:
@@ -75,7 +74,7 @@ spec:
       paths:
       - backend:
           service:
-            name: chatbot-nginx-proxy
+            name: nginx-proxy-deployment
             port:
               number: 5000
         path: /
@@ -86,7 +85,7 @@ spec:
       paths:
       - backend:
           service:
-            name: chatbot-nginx-proxy
+            name: nginx-proxy-deployment
             port:
               number: 3302
         path: /

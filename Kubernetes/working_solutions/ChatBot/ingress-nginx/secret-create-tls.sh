@@ -1,0 +1,1 @@
+kubectl -n chatbot create secret tls tls-secret-chatbot --cert=certificate.crt --key=key-decripted.key
