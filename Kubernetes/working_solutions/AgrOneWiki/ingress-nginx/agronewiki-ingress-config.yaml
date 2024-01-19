@@ -8,7 +8,11 @@ metadata:
   namespace: agrotech-dev
 spec:
   ingressClassName: nginx
-
+  tls:
+    - hosts:
+        - 'www.agronewiki.prodata.local'
+        - 'agronewiki.prodata.local'
+      secretName: tls-secret-prodata
   rules:
   - host: agronewiki.prodata.local
     http:
@@ -21,3 +25,5 @@ spec:
               number: 8080
         path: /
         pathType: Prefix
+status:
+  loadBalancer: {}

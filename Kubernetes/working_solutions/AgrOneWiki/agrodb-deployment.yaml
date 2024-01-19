@@ -2,34 +2,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: agrodb
+  name: agronewiki-db
   namespace: agrotech-dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: agrodb
+      app: agronewiki-db
   template:
     metadata:
       labels:
-        app: agrodb
+        app: agronewiki-db
     spec:
       containers:
-      - name: agrodb
+      - name: agronewiki-db
         image: postgres
         env:
           - name: POSTGRES_DB
-            value: "xwiki"  # Replace with your agrodbQL database name
+            value: "xwiki"  # Replace with your PostgreSQL database name
           - name: POSTGRES_USER
-            value: "xwiki"  # Replace with your agrodbQL username
+            value: "xwiki"  # Replace with your PostgreSQL username
           - name: POSTGRES_PASSWORD
-            value: "xwiki"  # Replace with your agrodbQL password
+            value: "xwiki"  # Replace with your PostgreSQL password
         ports:
         - containerPort: 5432
         volumeMounts:
-        - name: agrodb-pvc
+        - name: agronewiki-db-pvc
           mountPath: "/var/lib/postgresql/data"
       volumes:
-      - name: agrodb-pvc
+      - name: agronewiki-db-pvc
         persistentVolumeClaim:
-          claimName: agrodb-pvc
+          claimName: agronewiki-db-pvc

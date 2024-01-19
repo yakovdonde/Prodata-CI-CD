@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: agrodb-pvc
+  name: agronewiki-db-pvc
   namespace: agrotech-dev
 spec:
   accessModes:
