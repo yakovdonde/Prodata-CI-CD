@@ -2,20 +2,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: agronewiki-db
+  name: agronewiki_db
   namespace: agrotech-dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: agronewiki-db
+      app: agronewiki_db
   template:
     metadata:
       labels:
-        app: agronewiki-db
+        app: agronewiki_db
     spec:
       containers:
-      - name: agronewiki-db
+      - name: agronewiki_db
         image: postgres
         env:
           - name: POSTGRES_DB
@@ -27,7 +27,7 @@ spec:
         ports:
         - containerPort: 5432
         volumeMounts:
-        - name: agronewiki-db-pvc
+        - name: agronewiki_db-pvc
           mountPath: "/var/lib/postgresql/data"
       volumes:
       - name: agronewiki-db-pvc

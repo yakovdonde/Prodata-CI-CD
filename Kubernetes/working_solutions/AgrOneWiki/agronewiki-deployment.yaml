@@ -20,7 +20,7 @@ spec:
           - name: DB_TYPE
             value: "postgresql"
           - name: DB_HOST
-            value: "agrodb"  # Replace with your PostgreSQL host
+            value: "agronewiki_db"  # Replace with your PostgreSQL host
           - name: DB_PORT
             value: "5432"
           - name: DB_NAME
