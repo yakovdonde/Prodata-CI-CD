@@ -17,7 +17,6 @@ spec:
   - host: agronewiki.prodata.local
     http:
       paths:
-
       - backend:
           service:
             name: agronewiki-service
