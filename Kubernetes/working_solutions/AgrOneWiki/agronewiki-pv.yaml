@@ -11,4 +11,4 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: manual
   hostPath:
-    path: "/kubernetes/agronewiki/pv/agronewiki-pv"
+    path: "/kubernetes/agronewiki/agronewiki/pv/agronewiki-pv"

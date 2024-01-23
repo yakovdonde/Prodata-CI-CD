@@ -1,1 +1,1 @@
-kubectl -n agrotech-dev create secret tls tls-secret-prodata --cert=prodata.local.certificate.pem --key=decrypted.prodata.local.key
+kubectl -n agrotech-dev create secret tls tls-secret-prodata --cert=prodata.local.crt  --key=prodata.local.decrypted.key
