@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agrocrmdb
+  namespace: agrotech-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agrocrmdb
+  template:
+    metadata:
+      labels:
+        app: agrocrmdb
+    spec:
+      containers:
+        - name: agrocrmdb
+          image: bitnami/mariadb
+          env:
+            - name: MARIADB_ROOT_PASSWORD
+              value: root
+            - name: MARIADB_DATABASE
+              value: suitecrm
+            - name: MARIADB_USER
+              value: suitecrm
+            - name: MARIADB_PASSWORD
+              value: suitecrm
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - mountPath: /bitnami/mariadb
+              name: agrocrmdb-persistent-storage
+      volumes:
+        - name: agrocrmdb-persistent-storage
+          persistentVolumeClaim:
+            claimName: agrocrmdb-pvc
