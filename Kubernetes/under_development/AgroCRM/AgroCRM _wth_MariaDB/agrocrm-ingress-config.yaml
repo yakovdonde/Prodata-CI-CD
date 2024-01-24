@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: agronewiki-ingress
+  name: agrocrm-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
   namespace: agrotech-dev
@@ -9,16 +9,16 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - 'www.agronewiki.prodata.local'
-        - 'agronewiki.prodata.local'
+#        - 'www.agrocrm.prodata.local'
+        - 'agrocrm.prodata.local'
       secretName: tls-secret-prodata-local
   rules:
-  - host: agronewiki.prodata.local
+  - host: agrocrm.prodata.local
     http:
       paths:
       - backend:
           service:
-            name: agronewiki-service
+            name: agrocrm-service
             port:
               number: 8080
         path: /

@@ -18,7 +18,7 @@ spec:
           image: bitnami/suitecrm
           env:
             - name: SUITECRM_DATABASE_HOST
-              value: agrocrm-ervice
+              value: agrocrmdb-service
             - name: SUITECRM_DATABASE_PORT_NUMBER
               value: "3306"
             - name: SUITECRM_DATABASE_NAME
@@ -28,7 +28,7 @@ spec:
             - name: SUITECRM_DATABASE_PASSWORD
               value: suitecrm
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           volumeMounts:
             - mountPath: /bitnami/suitecrm
               name: agrocrm-persistent-storage

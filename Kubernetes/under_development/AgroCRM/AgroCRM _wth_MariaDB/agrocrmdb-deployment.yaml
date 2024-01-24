@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: agrocrmdb
   namespace: agrotech-dev
@@ -13,18 +13,30 @@ spec:
       labels:
         app: agrocrmdb
     spec:
+      initContainers:
+        - name: mariadb-create-directory-structure
+          image: busybox
+          command:
+            [
+              "sh",
+              "-c",
+              "mkdir -p /bitnami/mariadb/data && chown -R 1001:1001 /bitnami",
+            ]
+          volumeMounts:
+            - name: agrocrmdb-persistent-storage
+              mountPath: /bitnami
       containers:
         - name: agrocrmdb
           image: bitnami/mariadb
           env:
-            - name: MARIADB_ROOT_PASSWORD
-              value: root
+            - name: ALLOW_EMPTY_PASSWORD
+              value: "yes"
             - name: MARIADB_DATABASE
-              value: suitecrm
+              value: "suitecrm"
             - name: MARIADB_USER
-              value: suitecrm
+              value: "suitecrm"
             - name: MARIADB_PASSWORD
-              value: suitecrm
+              value: "suitecrm"
           ports:
             - containerPort: 3306
           volumeMounts:
