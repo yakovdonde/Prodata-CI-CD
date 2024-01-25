@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: agrocrm-suite-mariadb-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/kubernetes/agrotech-dev/agrocrm/agrocrm-suite-with-mariadb/agrocrm-suite-mariadb/pv/agrocrm-suite-mariadb-pv"

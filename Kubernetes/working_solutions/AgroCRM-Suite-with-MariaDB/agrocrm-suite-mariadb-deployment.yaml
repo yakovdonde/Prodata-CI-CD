@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: agrocrmdb
+  name: agrocrm-suite-mariadb
   namespace: agrotech-dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: agrocrmdb
+      app: agrocrm-suite-mariadb
   template:
     metadata:
       labels:
-        app: agrocrmdb
+        app: agrocrm-suite-mariadb
     spec:
       initContainers:
         - name: mariadb-create-directory-structure
@@ -23,10 +23,10 @@ spec:
               "mkdir -p /bitnami/mariadb/data && chown -R 1001:1001 /bitnami",
             ]
           volumeMounts:
-            - name: agrocrmdb-persistent-storage
+            - name: agrocrm-suite-mariadb-persistent-storage
               mountPath: /bitnami
       containers:
-        - name: agrocrmdb
+        - name: agrocrm-suite-mariadb
           image: bitnami/mariadb
           env:
             - name: ALLOW_EMPTY_PASSWORD
@@ -41,8 +41,8 @@ spec:
             - containerPort: 3306
           volumeMounts:
             - mountPath: /bitnami/mariadb
-              name: agrocrmdb-persistent-storage
+              name: agrocrm-suite-mariadb-persistent-storage
       volumes:
-        - name: agrocrmdb-persistent-storage
+        - name: agrocrm-suite-mariadb-persistent-storage
           persistentVolumeClaim:
-            claimName: agrocrmdb-pvc
+            claimName: agrocrm-suite-mariadb-pvc

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: agrocrmdb-pvc
+  name: agrocrm-suite-mariadb-pvc
   namespace: agrotech-dev
 spec:
   accessModes:

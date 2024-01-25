@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: agrocrm
+  name: agrocrm-suite-with-mariadb
   namespace: agrotech-dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: agrocrm
+      app: agrocrm-suite-with-mariadb
   template:
     metadata:
       labels:
-        app: agrocrm
+        app: agrocrm-suite-with-mariadb
     spec:
       containers:
-        - name: agrocrm
+        - name: agrocrm-suite-with-mariadb
           image: bitnami/suitecrm
           env:
             - name: SUITECRM_DATABASE_HOST
-              value: agrocrmdb-service
+              value: agrocrm-suite-mariadb-service
             - name: SUITECRM_DATABASE_PORT_NUMBER
               value: "3306"
             - name: SUITECRM_DATABASE_NAME
@@ -31,8 +31,8 @@ spec:
             - containerPort: 8080
           volumeMounts:
             - mountPath: /bitnami/suitecrm
-              name: agrocrm-persistent-storage
+              name: agrocrm-suite-with-mariadb-persistent-storage
       volumes:
-        - name: agrocrm-persistent-storage
+        - name: agrocrm-suite-with-mariadb-persistent-storage
           persistentVolumeClaim:
-            claimName: agrocrm-pvc
+            claimName: agrocrm-suite-with-mariadb-pvc
