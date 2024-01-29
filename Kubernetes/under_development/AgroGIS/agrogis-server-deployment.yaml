@@ -13,9 +13,11 @@ spec:
       labels:
         myLabel: agrogis-server
     spec:
+      imagePullSecrets:
+        - name: prodata-dockerhub-access
       containers:
         - name: agrogis-server
-          image: qgis/qgis:release-3_34
+          image: prodataaz/agrogis-server
           imagePullPolicy: IfNotPresent
           env:
             - name: LANG
@@ -33,5 +35,5 @@ spec:
               mountPath: /data/
       volumes:
         - name: qgis-data
-          hostPath:
-            path: /home/prdadm/agrogis/pv/agrogis-server-pv/data
+          persistentVolumeClaim:
+            claimName: agrogis-server-pvc

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agroflow-db
+  namespace: agrotech-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agroflow-db
+  template:
+    metadata:
+      labels:
+        app: agroflow-db
+    spec:
+      containers:
+        - name: agroflow-db
+          image: postgres
+          env:
+            - name: POSTGRES_USER
+              value: agroflow
+            - name: POSTGRES_PASSWORD
+              value: agroflow
+            - name: POSTGRES_DB
+              value: agroflow
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: agroflow-db-volume
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - "-U"
+                - agroflow
+            initialDelaySeconds: 30
+            periodSeconds: 10

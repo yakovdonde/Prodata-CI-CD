@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agroflow-scheduler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agroflow-scheduler
+  template:
+    metadata:
+      labels:
+        app: agroflow-scheduler
+    spec:
+      containers:
+        - name: agroflow-scheduler
+          image: celery_executor_v2
+          command: ["scheduler"]
+          env:
+            # Add your environ
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8974
+            initialDelaySeconds: 30
+            periodSeconds: 10
+
+# Add similar deployment and service configurations for other components like airflow-worker, airflow-triggerer, airflow-init, airflow-cli, and flower

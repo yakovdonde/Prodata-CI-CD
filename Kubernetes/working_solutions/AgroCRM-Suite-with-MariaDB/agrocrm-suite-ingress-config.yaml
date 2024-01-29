@@ -10,10 +10,10 @@ spec:
   tls:
     - hosts:
 #        - 'www.agrocrm.prodata.local'
-        - 'agrocrm.prodata.local'
+        - 'agrocrm-suite-maria.prodata.local'
       secretName: tls-secret-prodata-local
   rules:
-  - host: agrocrm.prodata.local
+  - host: agrocrm-suite-maria.prodata.local
     http:
       paths:
       - backend:

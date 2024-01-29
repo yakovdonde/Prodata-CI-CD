@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agroflow-webserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agroflow-webserver
+  template:
+    metadata:
+      labels:
+        app: agroflow-webserver
+    spec:
+      containers:
+        - name: agroflow-webserver
+          image: celery_executor_v2
+          command: ["webserver"]
+          env:
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10

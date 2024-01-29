@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agroredis
+  namespace: agrotech-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agroredis
+  template:
+    metadata:
+      labels:
+        app: agroredis
+    spec:
+      containers:
+        - name: agroredis
+          image: redis
+          ports:
+            - containerPort: 6379
+          livenessProbe:
+            exec:
+              command:
+                - redis-cli
+                - ping
+            initialDelaySeconds: 30
+            periodSeconds: 10

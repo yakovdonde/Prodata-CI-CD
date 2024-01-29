@@ -1,0 +1,24 @@
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "FCGI"
+#    nginx.ingress.kubernetes.io/fastcgi-index: "index.html"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: agrogis-server-ingress
+  namespace: agrotech-dev
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: agrogis.prodata.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: qgis-server-service
+            port:
+              number: 5555
+
