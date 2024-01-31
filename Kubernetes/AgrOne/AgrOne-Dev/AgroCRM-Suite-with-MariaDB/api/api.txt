@@ -1,0 +1,6 @@
+curl --location 'https://agrocrm-suite-maria-test.prodata.local/legacy/Api/access_token' \
+--form 'password="prodata-api"' \
+--form 'username="prodata-api"' \
+--form 'grant_type="password"' \
+--form 'client_id="a596cd31-0aa0-56a3-064b-65ba234303eb"' \
+--form 'client_secret="prodata-api"'
