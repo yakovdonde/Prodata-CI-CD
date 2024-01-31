@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: agrocrm-suite-with-mariadb-service
+  name: agrocrm-suite-with-mariadb-dev-service
   namespace: agrotech-dev
 spec:
   selector:
-    app: agrocrm-suite-with-mariadb
+    app: agrocrm-suite-with-mariadb-dev
   ports:
     - protocol: TCP
       port: 8080

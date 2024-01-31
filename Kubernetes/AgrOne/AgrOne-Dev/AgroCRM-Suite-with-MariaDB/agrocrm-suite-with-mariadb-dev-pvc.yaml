@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: agrocrm-suite-mariadb-pvc
+  name: agrocrm-suite-with-mariadb-dev-pvc
   namespace: agrotech-dev
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
+      storage: 25Gi
