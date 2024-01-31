@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: agrocrm-suite-with-mariadb-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  namespace: agrotech-dev
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+#        - 'www.agrocrm.prodata.local'
+        - 'agrocrm-suite-maria.prodata.local'
+      secretName: tls-secret-prodata-local
+  rules:
+  - host: agrocrm-suite-maria.prodata.local
+    http:
+      paths:
+      - backend:
+          service:
+            name: agrocrm-suite-with-mariadb-service
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix

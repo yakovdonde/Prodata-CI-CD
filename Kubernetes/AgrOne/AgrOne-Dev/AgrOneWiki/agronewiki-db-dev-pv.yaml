@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: agronewiki-db-dev-pv
+spec:
+  capacity:
+    storage: 25Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  hostPath:
+    path: "/kubernetes/agrotech-dev/agronewiki/agronewikidb/pv/agronewikidb-pv"

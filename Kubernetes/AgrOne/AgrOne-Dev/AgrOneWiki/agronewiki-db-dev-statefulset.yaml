@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: agronewiki-db-dev
+  namespace: agrotech-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agronewiki-db-dev
+  template:
+    metadata:
+      labels:
+        app: agronewiki-db-dev
+    spec:
+      containers:
+      - name: agronewiki-db-dev
+        image: postgres
+        env:
+          - name: POSTGRES_DB
+            value: "xwiki"  # Replace with your PostgreSQL database name
+          - name: POSTGRES_USER
+            value: "xwiki"  # Replace with your PostgreSQL username
+          - name: POSTGRES_PASSWORD
+            value: "xwiki"  # Replace with your PostgreSQL password
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: agronewiki-db-dev-pvc
+          mountPath: "/var/lib/postgresql/data"
+      volumes:
+      - name: agronewiki-db-dev-pvc
+        persistentVolumeClaim:
+          claimName: agronewiki-db-dev-pvc

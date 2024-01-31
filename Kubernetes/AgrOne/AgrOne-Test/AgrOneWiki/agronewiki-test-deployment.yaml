@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agronewiki-test
+  namespace: agrotech-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agronewiki-test
+  template:
+    metadata:
+      labels:
+        app: agronewiki-test
+    spec:
+      containers:
+      - name: agronewiki-test
+        image: xwiki:stable-postgres-tomcat
+        imagePullPolicy: Always
+        env:
+          - name: DB_TYPE
+            value: "postgresql"
+          - name: DB_HOST
+            value: "agronewiki-db-test-service"  # Replace with your PostgreSQL host
+          - name: DB_PORT
+            value: "5432"
+          - name: DB_NAME
+            value: "xwiki"  # Replace with your PostgreSQL database name
+          - name: DB_USER
+            value: "xwiki"  # Replace with your PostgreSQL username
+          - name: DB_PASSWORD
+            value: "xwiki"  # Replace with your PostgreSQL password
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+          - name: agronewiki-test-pvc
+            mountPath: /usr/local/xwiki
+      volumes:
+      - name: agronewiki-test-pvc
+        persistentVolumeClaim:
+          claimName: agronewiki-test-pvc

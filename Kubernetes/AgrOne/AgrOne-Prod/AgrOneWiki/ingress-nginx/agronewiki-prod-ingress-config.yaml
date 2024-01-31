@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: agronewiki-prod-ingress
+  annotations:
+    nginx.org/client-max-body-size: "1024m"
+    nginx.ingress.kubernetes.io/proxy-body-size: "1024m"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  namespace: agrotech-prod
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - 'www.agronewiki.prodata.local'
+        - 'agronewiki.prodata.local'
+      secretName: tls-secret-prodata-local
+  rules:
+  - host: agronewiki.prodata.local
+    http:
+      paths:
+      - backend:
+          service:
+            name: agronewiki-prod-service
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix

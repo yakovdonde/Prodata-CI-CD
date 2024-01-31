@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: agronewiki-test-service
+  namespace: agrotech-test
+spec:
+  type: ClusterIP
+  selector:
+    app: agronewiki-test
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+ #   nodePort: 30002  # Assign a specific NodePort number, e.g., 31000

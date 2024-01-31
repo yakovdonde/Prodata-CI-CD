@@ -2,11 +2,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: agronewikidb-service
+  name: agronewiki-db-dev-service
   namespace: agrotech-dev
 spec:
   selector:
-    app: agronewikidb
+    app: agronewiki-db-dev
   ports:
   - protocol: TCP
     port: 5432

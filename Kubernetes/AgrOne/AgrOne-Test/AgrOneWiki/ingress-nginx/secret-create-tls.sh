@@ -1,0 +1,1 @@
+kubectl -n agrotech-test create secret tls tls-secret-prodata-local --cert=prodata.local.crt  --key=prodata.local.key

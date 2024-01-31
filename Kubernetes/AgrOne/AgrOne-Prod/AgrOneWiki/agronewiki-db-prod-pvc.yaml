@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: agroflow-db-pvc
-  namespace: agrotech-dev
+  name: agronewiki-db-prod-pvc
+  namespace: agrotech-prod
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: manual
+  storageClassName: ""
   resources:
     requests:
-      storage: 10Gi
+      storage: 25Gi

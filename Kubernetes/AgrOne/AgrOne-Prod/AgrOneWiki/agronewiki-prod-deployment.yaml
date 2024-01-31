@@ -1,27 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: agronewiki
-  namespace: agrotech-dev
+  name: agronewiki-prod
+  namespace: agrotech-prod
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: agronewiki
+      app: agronewiki-prod
   template:
     metadata:
       labels:
-        app: agronewiki
+        app: agronewiki-prod
     spec:
       containers:
-      - name: agronewiki
+      - name: agronewiki-prod
 #        image: xwiki:stable-postgres-tomcat
-        image: xwiki:15.5.4-postgres-tomcat
+        image: xwiki:stable-postgres-tomcat
+        imagePullPolicy: Always
         env:
           - name: DB_TYPE
             value: "postgresql"
           - name: DB_HOST
-            value: "agronewikidb-service"  # Replace with your PostgreSQL host
+            value: "agronewiki-db-prod-service"  # Replace with your PostgreSQL host
           - name: DB_PORT
             value: "5432"
           - name: DB_NAME
@@ -33,9 +34,9 @@ spec:
         ports:
         - containerPort: 8080
         volumeMounts:
-          - name: agronewiki-pvc
+          - name: agronewiki-prod-pvc
             mountPath: /usr/local/xwiki
       volumes:
-      - name: agronewiki-pvc
+      - name: agronewiki-prod-pvc
         persistentVolumeClaim:
-          claimName: agronewiki-pvc
+          claimName: agronewiki-prod-pvc
