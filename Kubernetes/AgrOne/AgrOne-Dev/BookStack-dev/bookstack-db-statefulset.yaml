@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: bookstack-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bookstack-db
+  template:
+    metadata:
+      labels:
+        app: bookstack-db
+    spec:
+      containers:
+        - name: bookstack-db
+          image: postgres
+          env:
+            - name: POSTGRES_DB
+              value: bookstack
+            - name: POSTGRES_USER
+              value: bookstack
+            - name: POSTGRES_PASSWORD
+              value: bookstack
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: bookstack-db-persistent-storage
+      volumes:
+        - name: bookstack-db-persistent-storage
+          persistentVolumeClaim:
+            claimName: bookstack-db-pvc

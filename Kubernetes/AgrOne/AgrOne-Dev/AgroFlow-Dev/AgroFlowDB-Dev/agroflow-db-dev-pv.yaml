@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: agroflow-db-dev-pv
+spec:
+  capacity:
+    storage: 25Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/kubernetes/agrotech-dev/agroflow/agroflow-db/pv/agroflow-db-pv"  # Adjust this path to an appropriate directory on your host machine

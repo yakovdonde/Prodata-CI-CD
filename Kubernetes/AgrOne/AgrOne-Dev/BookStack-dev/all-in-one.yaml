@@ -1,0 +1,161 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bookstack-db
+spec:
+  selector:
+    app: bookstack
+    tier: postgres
+  ports:
+    - protocol: TCP
+      port: 5432
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data/postgres"
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookstack-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bookstack
+      tier: postgres
+  template:
+    metadata:
+      labels:
+        app: bookstack
+        tier: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          env:
+            - name: POSTGRES_DB
+              value: bookstack
+            - name: POSTGRES_USER
+              value: your_postgres_user
+            - name: POSTGRES_PASSWORD
+              value: your_postgres_password
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-persistent-storage
+      volumes:
+        - name: postgres-persistent-storage
+          persistentVolumeClaim:
+            claimName: postgres-pvc
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: bookstack-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data/bookstack"
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: bookstack-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookstack
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bookstack
+      tier: app
+  template:
+    metadata:
+      labels:
+        app: bookstack
+        tier: app
+    spec:
+      containers:
+        - name: bookstack
+          image: ghcr.io/linuxserver/bookstack:latest
+          env:
+            - name: DB_HOST
+              value: bookstack-db
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_DATABASE
+              value: bookstack
+            - name: DB_USERNAME
+              value: your_postgres_user
+            - name: DB_PASSWORD
+              value: your_postgres_password
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /var/www/html/public/uploads
+              name: bookstack-persistent-storage
+      volumes:
+        - name: bookstack-persistent-storage
+          persistentVolumeClaim:
+            claimName: bookstack-pvc
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: bookstack-service
+spec:
+  selector:
+    app: bookstack
+    tier: app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: NodePort
