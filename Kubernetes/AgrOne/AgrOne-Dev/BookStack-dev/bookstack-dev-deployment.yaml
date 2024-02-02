@@ -1,23 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bookstack
+  name: bookstack-dev
+  namespace: agrotech-dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bookstack
+      app: bookstack-dev
   template:
     metadata:
       labels:
-        app: bookstack
+        app: bookstack-dev
     spec:
       containers:
-        - name: bookstack
-          image: ghcr.io/linuxserver/bookstack
+        - name: bookstack-dev
+          image: lscr.io/linuxserver/bookstack
           env:
             - name: DB_HOST
-              value: bookstack-db-service
+              value: bookstack-db-dev-service
             - name: DB_PORT
               value: "5432"
             - name: DB_DATABASE
@@ -30,8 +31,8 @@ spec:
             - containerPort: 80
           volumeMounts:
             - mountPath: /var/www/html/public/uploads
-              name: bookstack-persistent-storage
+              name: bookstack-dev-persistent-storage
       volumes:
-        - name: bookstack-persistent-storage
+        - name: bookstack-dev-persistent-storage
           persistentVolumeClaim:
-            claimName: bookstack-pvc
+            claimName: bookstack-dev-pvc

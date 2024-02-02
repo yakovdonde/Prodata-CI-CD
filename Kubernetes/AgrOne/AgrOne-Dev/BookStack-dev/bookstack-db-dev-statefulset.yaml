@@ -1,19 +1,20 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: bookstack-db
+  name: bookstack-db-dev
+  namespace: agrotech-dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bookstack-db
+      app: bookstack-db-dev
   template:
     metadata:
       labels:
-        app: bookstack-db
+        app: bookstack-db-dev
     spec:
       containers:
-        - name: bookstack-db
+        - name: bookstack-db-dev
           image: postgres
           env:
             - name: POSTGRES_DB
@@ -26,8 +27,8 @@ spec:
             - containerPort: 5432
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: bookstack-db-persistent-storage
+              name: bookstack-db-dev-persistent-storage
       volumes:
-        - name: bookstack-db-persistent-storage
+        - name: bookstack-db-dev-persistent-storage
           persistentVolumeClaim:
-            claimName: bookstack-db-pvc
+            claimName: bookstack-db-dev-pvc
