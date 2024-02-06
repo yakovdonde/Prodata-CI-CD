@@ -1,0 +1,50 @@
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agroflow-flower-dev
+  namespace: agrotech-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agroflow-flower-dev
+  template:
+    metadata:
+      labels:
+        app: agroflow-flower-dev
+    spec:
+      containers:
+      - name: agroflow-flower-dev
+        image: apache/airflow:2.8.1
+        env:
+        - name: AIRFLOW__CORE__EXECUTOR
+          value: CeleryExecutor
+        - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
+          value: postgresql+psycopg2://airflow:airflow@postgres/airflow
+        - name: AIRFLOW__CELERY__RESULT_BACKEND
+          value: db+postgresql://airflow:airflow@postgres/airflow
+        - name: AIRFLOW__CELERY__BROKER_URL
+          value: redis://:@redis:6379/0
+        - name: AIRFLOW__CORE__FERNET_KEY
+          value: ''
+        - name: AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION
+          value: 'true'
+        - name: AIRFLOW__CORE__LOAD_EXAMPLES
+          value: 'true'
+        - name: AIRFLOW__API__AUTH_BACKENDS
+          value: 'airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session'
+        - name: AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK
+          value: 'true'
+        - name: _PIP_ADDITIONAL_REQUIREMENTS
+          value: ''
+#      command:
+#      - celery
+#      - flower
+#  dependsOn:
+#    - agroflow-redis-dev
+#    - agroflow-db-dev
+##  dependsOn:
+##    - redis
+##    - postgres
