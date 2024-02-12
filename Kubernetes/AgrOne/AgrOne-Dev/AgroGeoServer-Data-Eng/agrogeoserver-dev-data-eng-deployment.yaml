@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agrogeoserver-data-eng
+  namespace: agrotech-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agrogeoserver-data-eng
+  template:
+    metadata:
+      labels:
+        app: agrogeoserver-data-eng
+    spec:
+      containers:
+      - name: agrogeoserver-data-eng
+        image: docker.osgeo.org/geoserver:2.24.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080 # GeoServer default port
+        volumeMounts:
+        - name: agrogeoserver-dev-data-kamran
+          mountPath: /opt/geoserver_data/lib # Adjust the mount path as needed
+      volumes:
+      - name: agrogeoserver-dev-data-kamran
+        persistentVolumeClaim:
+          claimName: agrogeoserver-data-eng-pvc

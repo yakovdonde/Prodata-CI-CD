@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agrogeoserver-dev-web
+  namespace: agrotech-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agrogeoserver-dev-web
+  template:
+    metadata:
+      labels:
+        app: agrogeoserver-dev-web
+    spec:
+      containers:
+      - name: agrogeoserver-dev-web
+        image: docker.osgeo.org/geoserver:2.24.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080 # GeoServer default port
+        volumeMounts:
+        - name: agrogeoserver-dev-web-data
+#          mountPath: /var/geoserver_data # Adjust the mount path as needed
+          mountPath: /opt/geoserver_data/WEB-INF/lib
+      volumes:
+      - name: agrogeoserver-dev-web-data
+        persistentVolumeClaim:
+          claimName: agrogeoserver-dev-web-pvc
