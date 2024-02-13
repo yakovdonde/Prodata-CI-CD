@@ -10,3 +10,18 @@ spec:
   resources:
     requests:
       storage: 5Gi # Must match the storage size in the corresponding PV
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: agrogeoserver-dev-web-pvc-2
+  namespace: agrotech-dev
+
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi # Must match the storage size in the corresponding PV

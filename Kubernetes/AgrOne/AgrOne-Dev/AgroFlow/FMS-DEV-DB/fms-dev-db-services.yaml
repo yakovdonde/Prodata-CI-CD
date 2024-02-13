@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fms-db-dev-nodeport-service
+  namespace: agrotech-dev
+spec:
+  type: NodePort
+  selector:
+    app: fms-db-dev
+  ports:
+  - protocol: TCP
+    port: 5432
+    targetPort: 5432
+    nodePort: 30002  # You can choose any available port on your nodes
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: fms-db-dev-clusterip-service
+  namespace: agrotech-dev
+spec:
+  type: ClusterIP
+  selector:
+    app: fms-db-dev
+  ports:
+  - protocol: TCP
+    port: 5432
+    targetPort: 5432

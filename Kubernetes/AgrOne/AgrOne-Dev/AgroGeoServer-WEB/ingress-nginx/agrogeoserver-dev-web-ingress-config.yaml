@@ -1,36 +1,3 @@
-#---
-#
-#apiVersion: networking.k8s.io/v1
-#kind: Ingress
-#metadata:
-#  annotations:
-#    nginx.ingress.kubernetes.io/app-root: /geoserver
-##    nginx.ingress.kubernetes.io/use-regex: "true"
-##    nginx.ingress.kubernetes.io/rewrite-target: /
-##    nginx.org/client-max-body-size: "1024m"
-##    nginx.ingress.kubernetes.io/proxy-body-size: "1024m"
-#  name: agrogeoserver-dev-web-ingres
-#  namespace: agrotech-dev
-#spec:
-#  ingressClassName: nginx
-#  tls:
-#    - hosts:
-#        - agrogeoserver-dev-web-ingres
-#      secretName: tls-secret-prodata-local
-#  rules:
-#  - host: agrogeo-dev-web.prodata.local
-#    http:
-#      paths:
-##      - path: /geoserver/web/(/|$)(.*)
-#      - path: /
-#        pathType: Prefix
-#        backend:
-#          service:
-#            name: agrogeoserver-dev-web-service
-#            port:
-#              number: 8080
-#
-
 
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -39,7 +6,15 @@ metadata:
   annotations:
     nginx.org/client-max-body-size: "1024m"
     nginx.ingress.kubernetes.io/proxy-body-size: "1024m"
+#    nginx.ingress.kubernetes.io/secure-backends: "true"
+#    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     nginx.ingress.kubernetes.io/rewrite-target: /
+#    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+##    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+###    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+##    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+
+
   namespace: agrotech-dev
 spec:
   ingressClassName: nginx
@@ -56,5 +31,7 @@ spec:
             name: agrogeoserver-dev-web-service
             port:
               number: 8080
+#        path: /
         path: /
         pathType: Prefix
+

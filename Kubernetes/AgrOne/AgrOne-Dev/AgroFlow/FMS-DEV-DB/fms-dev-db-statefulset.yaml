@@ -1,0 +1,72 @@
+#apiVersion: apps/v1
+#kind: StatefulSet
+#metadata:
+#  name: fms-dev-db
+#  namespace: agrotech-dev
+#spec:
+#  replicas: 1
+#  selector:
+#    matchLabels:
+#      app: fms-dev-db
+#  template:
+#    metadata:
+#      labels:
+#        app: fms-dev-db
+#    spec:
+#      containers:
+#      - name: fms-dev-db
+#        image: postgres
+#        env:
+#        - name: POSTGRES_USER
+#          value: postgres
+#        - name: POSTGRES_PASSWORD
+#          value: postgres
+#        - name: POSTGRES_DB
+#          value: fms
+#        ports:
+#        - containerPort: 5432
+#        volumeMounts:
+#        - name: fms-dev-db-pvc
+#          mountPath: /var/lib/postgresql/data
+#      volumes:
+#      - name: postgres-storage
+#        persistentVolumeClaim:
+#          claimName: fms-dev-db-pvc
+#
+#---
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: fms-db-dev
+  namespace: agrotech-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fms-db-dev
+  template:
+    metadata:
+      labels:
+        app: fms-db-dev
+    spec:
+      containers:
+      - name: fms-db-dev
+        image: postgres
+        env:
+          - name: POSTGRES_DB
+            value: "fms"  # Replace with your PostgreSQL database name
+          - name: POSTGRES_USER
+            value: "fms"  # Replace with your PostgreSQL username
+          - name: POSTGRES_PASSWORD
+            value: "fms"  # Replace with your PostgreSQL password
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: fms-db-dev-pvc
+          mountPath: "/var/lib/postgresql/data"
+      volumes:
+      - name: fms-db-dev-pvc
+        persistentVolumeClaim:
+          claimName: fms-db-dev-pvc
