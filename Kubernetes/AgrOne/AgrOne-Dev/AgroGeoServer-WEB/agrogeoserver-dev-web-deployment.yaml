@@ -28,14 +28,6 @@ spec:
             value: "true"
           - name: SSL
             value: "true"
-#          - name: GEOSERVER_CSRF_WHITELIST
-#            value: "prodata.local"
-#          - name: HTTP_PROXY_NAME
-#            value: "agrogeo-dev-web.prodata.local"
-#          - name: DALLOW_ENV_PARAMETRIZATION
-#            value: "true"
-#        ##          - name: PROXY_BASE_URL
-#        ##            value: "agrogeo-dev-web.prodata.local"
         ports:
         - containerPort: 8080 # GeoServer default port
         volumeMounts:

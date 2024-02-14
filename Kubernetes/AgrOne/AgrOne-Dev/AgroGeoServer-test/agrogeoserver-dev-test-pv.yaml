@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: agrogeoserver-dev-web-pv
+spec:
+  capacity:
+    storage: 5Gi # Adjust the storage size as needed
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/kubernetes/agrone-dev/agrogeoserver-web/pv/agrogeoserver-pv" # Replace with the actual path on your host machine
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: agrogeoserver-dev-web-pv-2
+spec:
+  capacity:
+    storage: 5Gi # Adjust the storage size as needed
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/kubernetes/agrone-dev/agrogeoserver-web/pv/agrogeoserver-dev-web-pv-2" # Replace with the actual path on your host machine

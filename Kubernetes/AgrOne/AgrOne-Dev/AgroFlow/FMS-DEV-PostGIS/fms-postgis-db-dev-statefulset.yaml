@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: fms-postgis-db-dev
+  namespace: agrotech-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fms-postgis-db-dev
+  template:
+    metadata:
+      labels:
+        app: fms-postgis-db-dev
+    spec:
+      containers:
+      - name: fms-postgis-db-dev
+        image: postgis/postgis
+        env:
+          - name: POSTGRES_DB
+            value: "fms"  # Replace with your PostgreSQL database name
+          - name: POSTGRES_USER
+            value: "fms"  # Replace with your PostgreSQL username
+          - name: POSTGRES_PASSWORD
+            value: "fms"  # Replace with your PostgreSQL password
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: fms-postgis-db-dev-pvc
+          mountPath: "/var/lib/postgresql/data"
+      volumes:
+      - name: fms-postgis-db-dev-pvc
+        persistentVolumeClaim:
+          claimName: fms-postgis-db-dev-pvc

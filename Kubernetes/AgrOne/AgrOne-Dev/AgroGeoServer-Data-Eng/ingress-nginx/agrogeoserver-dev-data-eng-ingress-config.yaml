@@ -1,32 +1,28 @@
-
 ---
 
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    nginx.ingress.kubernetes.io/app-root: /geoserver/web
-#    nginx.ingress.kubernetes.io/use-regex: "true"
-#    nginx.ingress.kubernetes.io/rewrite-target: /
-#    nginx.org/client-max-body-size: "1024m"
-#    nginx.ingress.kubernetes.io/proxy-body-size: "1024m"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.org/client-max-body-size: "1024m"
+    nginx.ingress.kubernetes.io/proxy-body-size: "1024m"
   name: agrogeoserver-dev-data-eng-ingres
   namespace: agrotech-dev
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - 'agrogeo-dev-web.prodata.local'
+        - 'agrogeo-dev-data-eng.prodata.local'
       secretName: tls-secret-prodata-local
   rules:
   - host: agrogeo-dev-data-eng.prodata.local
     http:
       paths:
-#      - path: /geoserver/web/(/|$)(.*)
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: agrogeoserver-data-eng-service
+            name: agrogeoserver-dev-data-eng-nginx-proxy-deployment-nginx-service
             port:
-              number: 8080
+              number: 80
