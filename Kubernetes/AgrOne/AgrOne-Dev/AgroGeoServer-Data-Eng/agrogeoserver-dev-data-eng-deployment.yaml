@@ -15,14 +15,40 @@ spec:
     spec:
       containers:
       - name: agrogeoserver-data-eng
-        image: docker.osgeo.org/geoserver:2.24.1
+        image: docker.osgeo.org/geoserver:2.24.2
+        env:
+          - name: INSTALL_EXTENSIONS
+            value: "true"
+          - name: STABLE_EXTENSIONS
+            value: "authkey"
+          - name: SKIP_DEMO_DATA
+            value: "true"
+          - name: ROOT_WEBAPP_REDIRECT
+            value: "true"
+#          - name: CORS_ENABLED
+#            value: "true"
+#          - name: SSL
+#            value: "true"
+#          - name: HTTPS_PROXY_NAME
+#            value: "https://agrogeo-dev-data-eng.prodata.local/"
+#          - name: HTTPS_PROXY_PORT
+#            value: "443"
+#          - name: HTTPS_SCHEME
+#            value: "https"
+##          - name: PROXY_BASE_URL
+###            value: "/"
+##            value: "https://agrogeo-dev-data-eng.prodata.local/"
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080 # GeoServer default port
+        - containerPort: 8080 #80 # GeoServer default port
         volumeMounts:
-        - name: agrogeoserver-dev-data-kamran
+        - name: agrogeoserver-dev-data-eng
           mountPath: /opt/geoserver_data/lib # Adjust the mount path as needed
       volumes:
-      - name: agrogeoserver-dev-data-kamran
+      - name: agrogeoserver-dev-data-eng
         persistentVolumeClaim:
           claimName: agrogeoserver-data-eng-pvc
+
+#HTTPS_PROXY_NAME
+#HTTPS_PROXY_PORT
+#HTTPS_SCHEME

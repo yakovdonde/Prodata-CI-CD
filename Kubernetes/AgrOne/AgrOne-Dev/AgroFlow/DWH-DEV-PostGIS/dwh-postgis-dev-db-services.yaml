@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dwh-postgis-dev-deb-nodeport-service
+  namespace: agrotech-dev
+spec:
+  type: NodePort
+  selector:
+    app: dwh-postgis-dev-db
+  ports:
+  - protocol: TCP
+    port: 5432
+    targetPort: 5432
+    nodePort: 30005  # You can choose any available port on your nodes
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: dwh-postgis-dev-db-clusterip-service
+  namespace: agrotech-dev
+spec:
+  type: ClusterIP
+  selector:
+    app: dwh-postgis-dev-db
+  ports:
+  - protocol: TCP
+    port: 5432
+    targetPort: 5432

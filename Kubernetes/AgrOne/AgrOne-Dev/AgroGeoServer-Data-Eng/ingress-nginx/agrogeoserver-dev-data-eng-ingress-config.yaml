@@ -23,6 +23,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: agrogeoserver-dev-data-eng-nginx-proxy-deployment-nginx-service
+            name:  agrogeoserver-data-eng-service
             port:
-              number: 80
+              number: 8080
