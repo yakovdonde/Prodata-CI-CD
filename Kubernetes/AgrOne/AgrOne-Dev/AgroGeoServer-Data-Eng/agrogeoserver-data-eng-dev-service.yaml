@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: agrogeo-dev-data-eng-service
+  namespace: agrotech-dev
+spec:
+  selector:
+    app: agrogeo-dev-data-eng
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
