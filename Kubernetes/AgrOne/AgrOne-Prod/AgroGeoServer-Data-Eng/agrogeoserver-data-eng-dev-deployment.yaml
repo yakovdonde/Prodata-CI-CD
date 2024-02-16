@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agrogeo-prod
+  namespace: agrotech-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agrogeo-prod
+  template:
+    metadata:
+      labels:
+        app: agrogeo-prod
+    spec:
+      containers:
+      - name: agrogeo-prod
+        image: docker.osgeo.org/geoserver:2.24.2
+        env:
+          - name: INSTALL_EXTENSIONS
+            value: "true"
+          - name: STABLE_EXTENSIONS
+            value: "authkey"
+          - name: SKIP_DEMO_DATA
+            value: "true"
+          - name: ROOT_WEBAPP_REDIRECT
+            value: "true"
+          - name: CORS_ENABLED
+            value: "true"
+          - name: JAVA_OPTS
+            value: "-DALLOW_ENV_PARAMETRIZATION=true"
+          - name: GEOSERVER_CSRF_WHITELIST
+            value: "agrogeo.prodata.local"
+          - name: PROXY_BASE_URL
+            value: "https://agrogeo.prodata.local/geoserver"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080 #80 # GeoServer default port
+        volumeMounts:
+        - name: agrogeo-prod-pvc
+          mountPath: /opt/geoserver_data/WEB-INF/lib # Adjust the mount path as needed
+      volumes:
+      - name: agrogeo-prod-pvc
+        persistentVolumeClaim:
+          claimName: agrogeo-prod-pvc

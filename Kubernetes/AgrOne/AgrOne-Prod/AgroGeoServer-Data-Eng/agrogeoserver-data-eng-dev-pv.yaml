@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: agrogeo-prod-pv
+spec:
+  capacity:
+    storage: 5Gi # Adjust the storage size as needed
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/kubernetes/agrotech-prod/agrogeoserver/pv/agrogeo-prod-pv" # Replace with the actual path on your host machine
