@@ -8,22 +8,22 @@ metadata:
     nginx.ingress.kubernetes.io/app-root: /geoserver/
     nginx.org/client-max-body-size: "1024m"
     nginx.ingress.kubernetes.io/proxy-body-size: "1024m"
-  name: agrogeo-prod-ingres
-  namespace: agrotech-prod
+  name: agrogeo-test-ingres
+  namespace: agrotech-test
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - 'agrogeo.prodata.local'
+        - 'agrogeo-test.prodata.local'
       secretName: tls-secret-prodata-local
   rules:
-  - host: agrogeo.prodata.local
+  - host: agrogeo-test.prodata.local
     http:
       paths:
-      - path: / #/geoserver/
+      - path: /
         pathType: ImplementationSpecific
         backend:
           service:
-            name: agrogeo-prod-service
+            name: agrogeo-test-service
             port:
               number: 8080
