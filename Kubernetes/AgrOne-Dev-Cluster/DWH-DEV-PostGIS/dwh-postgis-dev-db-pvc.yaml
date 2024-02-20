@@ -1,11 +1,13 @@
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: dwh-postgis-dev-db-pvc
   namespace: agrotech-dev
 spec:
+  storageClassName: ceph-filesystem
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 64Gi
+      storage: 15Gi
