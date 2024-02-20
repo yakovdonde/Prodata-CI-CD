@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: dwh-postgis-dev-db-pvc
+spec:
+  capacity:
+    storage: 64Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/kubernetes/agrotech-dev/agroflow/dwh-postgis-dev-db/pv/dwh-postgis-dev-db-pv"  # Change this to the actual path on your host machine

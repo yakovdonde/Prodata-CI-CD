@@ -1,0 +1,12 @@
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pro-rti-test-db-pv
+spec:
+  capacity:
+    storage: 25Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/kubernetes/agrotech-test/pro-rti-test-db/pv/pro-rti-test-db-pv"  # Change this to the actual path on your host machine

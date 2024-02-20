@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: keycloak-prod-db
+  namespace: agrotech-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keycloak-prod-db
+  template:
+    metadata:
+      labels:
+        app: keycloak-prod-db
+    spec:
+      containers:
+        - name: keycloak-prod-db
+          image: postgres
+          imagePullPolicy: Always
+          env:
+            - name: POSTGRES_DB
+              value: keycloak
+            - name: POSTGRES_USER
+              value: keycloak
+            - name: POSTGRES_PASSWORD
+              value: keycloak
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: keycloak-prod-db-storage
+              mountPath: /var/lib/postgresql/data
+
+      volumes:
+        - name: keycloak-prod-db-storage
+          persistentVolumeClaim:
+            claimName: keycloak-prod-db-pvc

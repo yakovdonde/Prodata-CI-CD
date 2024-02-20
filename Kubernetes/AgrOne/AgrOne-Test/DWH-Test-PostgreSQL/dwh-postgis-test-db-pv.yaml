@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: dwh-postgis-test-db-pv
+spec:
+  capacity:
+    storage: 64Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/kubernetes/agrotech-test/dwh-postgis-test-db/pv/dwh-postgis-test-db-pv"  # Change this to the actual path on your host machine

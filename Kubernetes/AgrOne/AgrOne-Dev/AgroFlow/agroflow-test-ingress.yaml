@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: agroflow-test-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  namespace: agrotech-test
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - 'agroflow-test.prodata.local'
+      secretName: tls-secret-prodata-local
+  rules:
+  - host: agroflow-test.prodata.local
+    http:
+      paths:
+      - backend:
+          service:
+            name: agroflow-test-webserver
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix

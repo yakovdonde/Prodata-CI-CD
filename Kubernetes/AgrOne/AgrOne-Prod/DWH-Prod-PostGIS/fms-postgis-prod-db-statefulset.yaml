@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: dwh-postgis-prod-db
+  namespace: agrotech-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dwh-postgis-prod-db
+  template:
+    metadata:
+      labels:
+        app: dwh-postgis-prod-db
+    spec:
+      containers:
+      - name: dwh-postgis-prod-db
+        image: postgis/postgis
+        env:
+          - name: POSTGRES_DB
+            value: "dwh"  # Replace with your PostgreSQL database name
+          - name: POSTGRES_USER
+            value: "dwh"  # Replace with your PostgreSQL username
+          - name: POSTGRES_PASSWORD
+            value: "dwh"  # Replace with your PostgreSQL password
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: dwh-postgis-prod-db-pvc
+          mountPath: "/var/lib/postgresql/data"
+      volumes:
+      - name: fms-postgis-prod-db-pvc
+        persistentVolumeClaim:
+          claimName: fms-postgis-prod-db-pvc

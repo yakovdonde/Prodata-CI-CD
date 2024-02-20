@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: agroflow-dev-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  namespace: agrotech-dev
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - 'agroflow-dev.prodata.local'
+      secretName: tls-secret-prodata-local
+  rules:
+  - host: agroflow-dev.prodata.local
+    http:
+      paths:
+      - backend:
+          service:
+            name: agroflow-dev-webserver
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
