@@ -6,7 +6,7 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: dwh-postgis-dev-db
+    app: dwh-dev-db
   ports:
   - protocol: TCP
     port: 5432
@@ -18,12 +18,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: dwh-postgis-dev-db-clusterip-service
+  name: dwh-dev-db-clusterip-service
   namespace: agrotech-dev
 spec:
   type: ClusterIP
   selector:
-    app: dwh-postgis-dev-db
+    app: dwh-dev-db
   ports:
   - protocol: TCP
     port: 5432

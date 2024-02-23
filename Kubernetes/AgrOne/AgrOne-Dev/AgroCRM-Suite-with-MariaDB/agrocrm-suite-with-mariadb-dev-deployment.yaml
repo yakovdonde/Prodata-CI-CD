@@ -27,6 +27,10 @@ spec:
               value: suitecrm
             - name: SUITECRM_DATABASE_PASSWORD
               value: suitecrm
+            - name: SUITECRM_USER
+              value: "admin"
+            - name: SUITECRM_PASSWORD
+              value: "admin"
           ports:
             - containerPort: 8080
           volumeMounts:
@@ -36,3 +40,7 @@ spec:
         - name: agrocrm-suite-with-mariadb-dev-persistent-storage
           persistentVolumeClaim:
             claimName: agrocrm-suite-with-mariadb-dev-pvc
+#
+#
+#- SUITECRM_DATABASE_USER=bn_suitecrm
+#      - SUITECRM_DATABASE_NAME=bitnami_suitecrm

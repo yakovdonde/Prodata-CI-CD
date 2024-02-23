@@ -8,4 +8,4 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/kubernetes/agrotech-dev/agrocrm/agrocrm-suite-with-mariadb/agrocrm-suite-mariadb/pv/agrocrm-suite-mariadb-pv"
+    path: "/kubernetes/agrotech-dev/agrocrm/agrocrm-maria/maria/pv/agrocrm-maria-pv"

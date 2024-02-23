@@ -1,22 +1,31 @@
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
-  name: dwh-postgis-dev-db
+  name: dwh-dev-db
   namespace: agrotech-dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: dwh-postgis-dev-db
+      app: dwh-dev-db
   template:
     metadata:
       labels:
-        app: dwh-postgis-dev-db
+        app: dwh-dev-db
     spec:
+      tolerations:
+        - key: "node.kubernetes.io/unreachable"
+          operator: "Exists"
+          effect: "NoExecute"
+          tolerationSeconds: 5
+        - key: "node.kubernetes.io/not-ready"
+          operator: "Exists"
+          effect: "NoExecute"
+          tolerationSeconds: 5
       containers:
-      - name: dwh-postgis-dev-db
-        image: postgis/postgis
+      - name: dwh-dev-db
+        image: postgres
         env:
           - name: POSTGRES_DB
             value: "dwh"  # Replace with your PostgreSQL database name
@@ -27,9 +36,9 @@ spec:
         ports:
         - containerPort: 5432
         volumeMounts:
-        - name: dwh-postgis-dev-db-pvc
+        - name: dwh-dev-db-pvc
           mountPath: "/var/lib/postgresql/data"
       volumes:
-      - name: dwh-postgis-dev-db-pvc
+      - name: dwh-dev-db-pvc
         persistentVolumeClaim:
-          claimName: dwh-postgis-dev-db-pvc
+          claimName: dwh-dev-db-pvc
