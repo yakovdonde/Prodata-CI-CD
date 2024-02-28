@@ -27,10 +27,10 @@ spec:
               value: suitecrm
             - name: SUITECRM_DATABASE_PASSWORD
               value: suitecrm
-            - name: SUITECRM_USER
-              value: "admin"
+            - name: SUITECRM_USERNAME
+              value: lala
             - name: SUITECRM_PASSWORD
-              value: "admin"
+              value: lala
           ports:
             - containerPort: 8080
           volumeMounts:
