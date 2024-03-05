@@ -1,7 +1,9 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: testfs
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+  name: agrone-ceph-fs
 # Change "rook-ceph" provisioner prefix to match the operator namespace if needed
 provisioner: rook-ceph.cephfs.csi.ceph.com
 parameters:
@@ -10,11 +12,11 @@ parameters:
   clusterID: rook-ceph
 
   # CephFS filesystem name into which the volume shall be created
-  fsName: testfs
+  fsName: agrone-ceph-fs
 
   # Ceph pool into which the volume shall be created
   # Required for provisionVolume: "true"
-  pool: testfs-replicated
+  pool: agrone-ceph-fs
 
   # The secrets contain Ceph admin credentials. These are generated automatically by the operator
   # in the same namespace as the cluster.

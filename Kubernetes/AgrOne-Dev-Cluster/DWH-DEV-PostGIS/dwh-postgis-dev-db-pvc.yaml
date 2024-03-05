@@ -2,10 +2,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: dwh-dev-db-pvc
+  name: ceph-test-deb-pvc
   namespace: agrotech-dev
 spec:
-  storageClassName: testfs
+  storageClassName: agrone-ceph-fs-storageclass
   accessModes:
     - ReadWriteMany
   resources:

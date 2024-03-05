@@ -1,18 +1,46 @@
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: ceph-dev-ingress
+#  annotations:
+#    nginx.ingress.kubernetes.io/rewrite-target: /$1
+#    nginx.ingress.kubernetes.io/use-regex: "true"
+#    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+#    nginx.ingress.kubernetes.io/server-snippet: |
+#        proxy_ssl_verify off;
+#  namespace: rook-ceph
+#spec:
+#  ingressClassName: nginx
+#  tls:
+#    - hosts:
+#        - 'ceph-dashboard.prodata.local'
+#      secretName: tls-secret-prodata-local
+#  rules:
+#  - host: ceph-dashboard.prodata.local
+#    http:
+#      paths:
+#      - backend:
+#          service:
+#            name: rook-ceph-mgr-dashboard
+#            port:
+#              number: 8443
+#        path: /
+#        pathType: Prefix
+
+---
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ceph-dev-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-    nginx.ingress.kubernetes.io/server-snippet: |
-        proxy_ssl_verify off;
+  name: agrobyte-dev-airbyte-webapp-ingress
   namespace: rook-ceph
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
+#        - 'www.agrocrm.prodata.local'
         - 'ceph-dashboard.prodata.local'
       secretName: tls-secret-prodata-local
   rules:
@@ -23,37 +51,6 @@ spec:
           service:
             name: rook-ceph-mgr-dashboard
             port:
-              number: 8443
+              number: 7000
         path: /
         pathType: Prefix
-
-#
-#---
-#
-#apiVersion: networking.k8s.io/v1
-#kind: Ingress
-#metadata:
-#  name: rook-ceph-mgr-dashboard
-#  namespace: rook-ceph
-#  annotations:
-##    kubernetes.io/tls-acme: "true"
-#    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-#    nginx.ingress.kubernetes.io/server-snippet: |
-#      proxy_ssl_verify off;
-#spec:
-#  ingressClassName: "nginx"
-#  tls:
-#   - hosts:
-#     - ceph-dashboard.prodata.local
-#     secretName: tls-secret-prodata-local
-#  rules:
-#  - host: ceph-dashboard.prodata.local
-#    http:
-#      paths:
-#      - path: /
-#        pathType: Prefix
-#        backend:
-#          service:
-#            name: rook-ceph-mgr-dashboard
-#            port:
-#              name: 8443

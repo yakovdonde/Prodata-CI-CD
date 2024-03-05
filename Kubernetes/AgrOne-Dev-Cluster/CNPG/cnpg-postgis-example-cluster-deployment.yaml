@@ -1,0 +1,10 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: cnpg-postgis-dev-example
+  namespace: agrotech-dev
+spec:
+  instances: 3
+  imageName: postgis/postgis:16-master
+  storage:
+    size: 1Gi

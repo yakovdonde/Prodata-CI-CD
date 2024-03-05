@@ -1,14 +1,15 @@
 apiVersion: ceph.rook.io/v1
 kind: CephFilesystem
 metadata:
-  name: testfs
+  name: agrone-ceph-fs
   namespace: rook-ceph
 spec:
   metadataPool:
+    failureDomain: host
     replicated:
       size: 2
   dataPools:
-    - name: replicated
+    - name: datapool
       replicated:
         size: 2
   preserveFilesystemOnDelete: true

@@ -1,26 +1,24 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ceph-s3-dev-ingress
+  name: agrobyte-dev-airbyte-webapp-ingress
+  namespace: agrotech-dev
   annotations:
-    nginx.org/client-max-body-size: "1024m"
-    nginx.ingress.kubernetes.io/proxy-body-size: "1024m"
     nginx.ingress.kubernetes.io/rewrite-target: /
-  namespace: rook-ceph
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - 'ceph-s3.prodata.local'
-#        - 'agronewiki-dev.prodata.local'
+#        - 'www.agrocrm.prodata.local'
+        - 'agrobyte-dev.prodata.local'
       secretName: tls-secret-prodata-local
   rules:
-  - host: ceph-s3.prodata.local
+  - host: agrobyte-dev.prodata.local
     http:
       paths:
       - backend:
           service:
-            name: rook-ceph-rgw-ceph-objectstore
+            name: agrobyte-dev-airbyte-webapp-svc
             port:
               number: 80
         path: /
