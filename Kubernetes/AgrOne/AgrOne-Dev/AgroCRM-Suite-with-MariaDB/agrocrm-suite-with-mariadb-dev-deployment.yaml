@@ -40,7 +40,3 @@ spec:
         - name: agrocrm-suite-with-mariadb-dev-persistent-storage
           persistentVolumeClaim:
             claimName: agrocrm-suite-with-mariadb-dev-pvc
-#
-#
-#- SUITECRM_DATABASE_USER=bn_suitecrm
-#      - SUITECRM_DATABASE_NAME=bitnami_suitecrm
