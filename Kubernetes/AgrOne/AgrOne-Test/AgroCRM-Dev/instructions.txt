@@ -1,0 +1,10 @@
+This helm chart values assume:
+- Keycloak url is: https://keycloak-dev.prodata.az
+- Keycloak Admin url is: https://keycloak-dev.prodata.az
+- Keycloak admin credentials are: admin / admin
+
+
+In order to deploy keycloack with this helm chart run:
+
+
+helm install agrocrm-test oci://registry-1.docker.io/bitnamicharts/suitecrm -n agrotech-test -f /kubernetes/agrotech-test/agrocrm-suite-with-mariadb/helm/values.yaml
